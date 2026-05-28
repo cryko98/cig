@@ -237,16 +237,16 @@ export default function App() {
       </div>
 
       {/* Warning Strip Header (Clean cigarette layout) */}
-      <div className="bg-[#1e1b18] text-[#fbf9f4] py-2.5 px-4 font-mono text-center text-xs md:text-sm font-extrabold tracking-widest uppercase flex items-center justify-center gap-2 overflow-hidden sticky top-0 z-50 border-b border-[#1e1b18]/10 shadow-sm select-none">
-        <span className="bg-[#eaa135] text-[#1e1b18] px-2 py-0.5 text-[10px] tracking-wider font-black rounded font-mono mr-1">WARNING</span>
-        <span className="transition-all duration-500 ease-in-out">
+      <div className="bg-[#1e1b18] text-[#fbf9f4] py-2 px-4 font-mono text-center text-[10px] sm:text-xs md:text-sm font-extrabold tracking-widest uppercase flex flex-col sm:flex-row items-center justify-center gap-1.5 sm:gap-2 sticky top-0 z-50 border-b border-[#1e1b18]/10 shadow-sm select-none">
+        <span className="bg-[#eaa135] text-[#1e1b18] px-2 py-0.5 text-[9px] sm:text-[10px] tracking-wider font-black rounded font-mono shrink-0">WARNING</span>
+        <span className="transition-all duration-500 ease-in-out whitespace-normal break-words max-w-full leading-tight">
           {PHYSICAL_WARNINGS[warningIndex].replace("WARNING:", "").trim()}
         </span>
       </div>
 
       {/* Clean Navigation Container - Cigarette Theme Colors with Horizontal Quick Link Shortcuts */}
       <header className="max-w-6xl mx-auto px-4 pt-4 md:pt-6 relative z-10">
-        <div className="bg-[#fffdfa] border-2 border-[#1e1b18] p-4 flex flex-col md:flex-row gap-4 items-center justify-between rounded-2xl shadow-[4px_4px_0_0_#1e1b18]">
+        <div className="bg-[#fffdfa] border-2 border-[#1e1b18] p-4 flex flex-col lg:flex-row gap-4 items-center justify-between rounded-2xl shadow-[4px_4px_0_0_#1e1b18]">
           
           {/* Logo brand */}
           <div className="flex items-center gap-3">
@@ -356,7 +356,7 @@ export default function App() {
             </span>
 
             {/* Title with heavy Space display typography */}
-            <h1 className="font-display text-7xl sm:text-8xl md:text-9xl tracking-tight text-[#1e1b18] mb-1 uppercase font-black italic select-none">
+            <h1 className="font-display text-5xl sm:text-8xl md:text-9xl tracking-tight text-[#1e1b18] mb-1 uppercase font-black italic select-none">
               NEED A HIT?
             </h1>
 
@@ -414,15 +414,15 @@ export default function App() {
               </a>
             </div>
 
-            {/* Fast copy Contract bar */}
+            {/* Fast copy Contract bar - Improved to wrap completely instead of truncating on mobile */}
             <div className="mt-8 bg-[#fbf9f4] border-2 border-[#1e1b18] rounded-2xl p-4 w-full flex flex-col md:flex-row items-center justify-between gap-3 text-left">
-              <div className="w-full truncate">
+              <div className="w-full">
                 <p className="text-[9px] font-mono font-black text-stone-500 uppercase tracking-widest leading-none">Holy Tobacco Seed Contract Address</p>
                 <p id="target-contract-address" className="font-mono text-xs md:text-sm font-bold text-[#1e1b18] select-all break-all mt-1.5">{CONTRACT_ADDRESS}</p>
               </div>
               <button 
                 onClick={handleCopyCA}
-                className="bg-[#1e1b18] hover:bg-[#eaa135] text-[#fbf9f4] hover:text-[#1e1b18] font-black font-mono text-xs p-3 px-5 flex items-center gap-2 w-full md:w-auto justify-center rounded-xl transition-all"
+                className="bg-[#1e1b18] hover:bg-[#eaa135] text-[#fbf9f4] hover:text-[#1e1b18] font-black font-mono text-xs p-3 px-5 flex items-center gap-2 w-full md:w-auto justify-center rounded-xl transition-all shrink-0"
               >
                 {copied ? <Check className="w-4 h-4 text-green-400" /> : <Copy className="w-4 h-4" />}
                 <span>{copied ? "COPIED" : "COPY CA"}</span>
@@ -574,13 +574,14 @@ export default function App() {
               </p>
 
               {/* Physical looking Cigarette box output container */}
-              <div className="bg-[#fbf9f4] border-2 border-[#1e1b18] p-5 relative rounded-2xl my-4 min-h-[100px] flex items-center justify-center overflow-hidden shadow-inner">
-                {/* Visual filter cap on left */}
-                <div className="absolute left-0 top-0 bottom-0 w-8 filter-gradient flex items-center justify-center select-none font-bold text-[9px] text-[#1e1b18] font-mono rotate-180 writing-mode-vertical border-r-2 border-[#1e1b18]">
-                  FILTER
+              <div className="bg-[#fbf9f4] border-2 border-[#1e1b18] relative rounded-2xl my-4 min-h-[100px] flex items-center overflow-hidden shadow-inner">
+                {/* Cigarette Filter Stripe Indicator on Left */}
+                <div className="absolute left-0 top-0 bottom-0 w-6 filter-gradient border-r-2 border-[#1e1b18] flex items-center justify-center">
+                  {/* Tiny cork dots effect */}
+                  <div className="w-full h-full opacity-10 bg-[radial-gradient(#1e1b18_1px,transparent_1px)] [background-size:4px_4px]"></div>
                 </div>
                 
-                <div className="pl-10 pr-2 text-center">
+                <div className="pl-10 pr-4 py-5 text-center w-full">
                   {excuseLoading ? (
                     <div className="flex items-center justify-center gap-2">
                       <RefreshCw className="w-4 h-4 text-[#eaa135] animate-spin" />
@@ -631,7 +632,7 @@ export default function App() {
                     <span className="bg-[#1e1b18] text-[#fbf9f4] rounded-full p-1 text-[9px] font-mono font-bold w-6 h-6 flex items-center justify-center">✔</span>
                   </div>
                   <h4 className="font-display text-xl uppercase mb-2 text-[#1e1b18]">{b.title}</h4>
-                  <p className="font-sans text-xs text-stone-600 leading-relaxed font-bold">{b.description}</p>
+                  <p className="font-sans text-xs text-stone-600 leading-relaxed font-bold break-all sm:break-words">{b.description}</p>
                 </div>
                 <div className="h-[3px] w-full filter-gradient mt-6 rounded"></div>
               </div>
@@ -640,16 +641,16 @@ export default function App() {
 
           {/* Quick interactive shortcut block to pump.fun */}
           <div className="mt-8 border-2 border-dashed border-stone-300 p-5 bg-[#fbf9f4] rounded-2xl flex flex-col sm:flex-row justify-between items-center gap-4">
-            <div>
+            <div className="w-full">
               <h5 className="font-mono text-xs font-black text-[#1e1b18] uppercase">Verify exact pool contract address</h5>
-              <p className="font-sans text-[10px] md:text-xs text-stone-500 font-bold truncate max-w-xl">B5ihVH6qRkGTXhp61MZG5rRAmaCwtva3P2gRbZZrFU65</p>
+              <p className="font-mono text-[10px] md:text-xs text-stone-500 font-bold break-all select-all mt-1">{CONTRACT_ADDRESS}</p>
             </div>
             
             <a 
               href={`https://pump.fun/coin/${CONTRACT_ADDRESS}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-[#eaa135] hover:bg-stone-900 hover:text-white text-[#1e1b18] font-mono text-xs font-black py-3 px-6 border-2 border-[#1e1b18] rounded-xl uppercase tracking-wider shadow-[2px_2px_0_0_#1e1b18] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none inline-flex items-center gap-1.5 transition-all"
+              className="bg-[#eaa135] hover:bg-stone-900 hover:text-white text-[#1e1b18] font-mono text-xs font-black py-3 px-6 border-2 border-[#1e1b18] rounded-xl uppercase tracking-wider shadow-[2px_2px_0_0_#1e1b18] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none inline-flex items-center gap-1.5 transition-all shrink-0 w-full sm:w-auto justify-center"
             >
               <span>EXPLORE PUMP</span>
               <ExternalLink className="w-3" />
@@ -685,14 +686,14 @@ export default function App() {
                   <button
                     key={idx}
                     onClick={() => handleAnswerSubmit(opt.points, idx)}
-                    className={`w-full text-left p-3.5 font-mono text-xs font-extrabold uppercase border-2 rounded-xl transition-all flex items-center justify-between ${
+                    className={`w-full text-left p-3.5 font-mono text-xs font-extrabold uppercase border-2 rounded-xl transition-all flex items-center justify-between gap-2 ${
                       selectedAnswer === idx 
                         ? "bg-[#1e1b18] text-[#fbf9f4] border-[#1e1b18]" 
                         : "bg-white hover:bg-[#eaa135]/10 text-stone-700 hover:text-[#1e1b18] border-stone-200 hover:border-[#1e1b18] hover:translate-x-0.5"
                     }`}
                   >
-                    <span>{opt.text}</span>
-                    <ChevronRight className="w-4 h-4 text-[#eaa135]" />
+                    <span className="flex-1 pr-2 break-words leading-relaxed">{opt.text}</span>
+                    <ChevronRight className="w-4 h-4 text-[#eaa135] shrink-0" />
                   </button>
                 ))}
               </div>
@@ -760,7 +761,7 @@ export default function App() {
                   </div>
 
                   <h4 className="font-display text-xl uppercase mb-2 text-[#1e1b18]">{item.title}</h4>
-                  <p className="font-sans text-xs text-stone-600 leading-relaxed font-bold">{item.description}</p>
+                  <p className="font-sans text-xs text-stone-600 leading-relaxed font-bold break-words">{item.description}</p>
                 </div>
 
                 <div className="mt-6 border-t border-stone-200 pt-3">
@@ -813,7 +814,6 @@ export default function App() {
               src={DEXSCREENER_EMBED_URL}
               className="absolute inset-0 w-full h-full border-0"
               title="CIG Solana Search Chart"
-              referrerPolicy="no-referrer"
               allow="clipboard-write"
             ></iframe>
           </div>
