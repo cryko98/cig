@@ -1,0 +1,6 @@
+{
+  "name": "CIG",
+  "description": "The official cigarette-themed Solana memecoin $cig - Celebrating our daily addiction with hilarious memes and cheeky vibes.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
