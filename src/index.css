@@ -12,8 +12,8 @@ html, body {
   cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' style='font-size: 24px;'><text y='24'>🚬</text></svg>") 0 16, auto;
   scroll-behavior: smooth;
   font-family: var(--font-sans);
-  background-color: #111111;
-  color: #ffffff;
+  background-color: #fbf9f4; /* Elegant warm cigarette paper off-white */
+  color: #1e1b18; /* Rich dark tobacco/charcoal text */
 }
 
 /* Fire cursor for hovering on links, buttons and copy elements */
@@ -21,10 +21,10 @@ a, button, [role="button"], input[type="button"], select, select option, label {
   cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' style='font-size: 24px;'><text y='24'>🔥</text></svg>") 0 16, pointer !important;
 }
 
-/* For selection highlight */
+/* For selection highlight in filter golden color */
 ::selection {
-  background-color: #ff4500;
-  color: #fff;
+  background-color: #eaa135;
+  color: #1e1b18; /* Dark brown/black text on selection */
 }
 
 /* Custom anims for scrolling ticker */
@@ -55,46 +55,132 @@ a, button, [role="button"], input[type="button"], select, select option, label {
   animation-play-state: paused;
 }
 
-/* Simple flickering animations for vintage cigarette theme */
-@keyframes flicker {
-  0%, 19.999%, 22%, 62.999%, 64%, 64.999%, 70%, 100% {
-    opacity: 0.99;
-    filter: drop-shadow(0 0 6px rgba(255, 69, 0, 0.8)) drop-shadow(0 0 15px rgba(255, 69, 0, 0.5));
+/* Glowing ember filter look */
+@keyframes glow-amber {
+  0%, 100% {
+    box-shadow: 0 0 10px rgba(234, 161, 53, 0.4), 0 0 20px rgba(234, 161, 53, 0.2);
+    text-shadow: 0 0 8px rgba(234, 161, 53, 0.5);
   }
-  20%, 21.999%, 63%, 63.999%, 65%, 69.999% {
-    opacity: 0.4;
-    filter: none;
+  50% {
+    box-shadow: 0 0 18px rgba(234, 161, 53, 0.7), 0 0 32px rgba(214, 123, 22, 0.4);
+    text-shadow: 0 0 14px rgba(234, 161, 53, 0.8), 0 0 22px rgba(214, 123, 22, 0.5);
   }
 }
 
-.flicker-slow {
-  animation: flicker 4s infinite alternate;
+.flicker-amber {
+  animation: glow-amber 3s infinite ease-in-out;
 }
 
-/* Neon Text Glow Effect */
-.neon-glow {
-  text-shadow: 0 0 10px #ff4500, 0 0 20px #ff4500, 0 0 30px rgba(255, 69, 0, 0.4);
+/* Rising wisps of cigarette smoke animation */
+@keyframes smoke-rise-1 {
+  0% {
+    transform: translateY(110%) translateX(0) scale(0.8) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.12;
+  }
+  50% {
+    transform: translateY(50%) translateX(25px) scale(1.4) rotate(90deg);
+    opacity: 0.18;
+    filter: blur(12px);
+  }
+  90% {
+    opacity: 0.05;
+  }
+  100% {
+    transform: translateY(-20%) translateX(-15px) scale(2.2) rotate(180deg);
+    opacity: 0;
+    filter: blur(25px);
+  }
 }
 
-/* Smoky overlay background decoration */
-.smoky-bg {
-  position: relative;
-  background-color: #111;
-  background-image: radial-gradient(circle at center, rgba(255, 69, 0, 0.12) 0%, rgba(10, 10, 10, 1) 90%);
+@keyframes smoke-rise-2 {
+  0% {
+    transform: translateY(110%) translateX(10px) scale(0.9) rotate(20deg);
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.08;
+  }
+  60% {
+    transform: translateY(40%) translateX(-30px) scale(1.6) rotate(-80deg);
+    opacity: 0.15;
+    filter: blur(15px);
+  }
+  85% {
+    opacity: 0.04;
+  }
+  100% {
+    transform: translateY(-20%) translateX(20px) scale(2.4) rotate(-140deg);
+    opacity: 0;
+    filter: blur(30px);
+  }
 }
 
-/* Styled vintage meme img from Bold Typography design specification */
-.meme-img-theme {
-  height: 90px;
-  width: auto;
-  margin: 0 12px;
-  border-radius: 6px;
-  border: 2px solid #ff4500;
-  box-shadow: 0 4px 12px rgba(255, 69, 0, 0.25);
-  transition: transform 0.2s ease, filter 0.2s ease;
+@keyframes smoke-rise-3 {
+  0% {
+    transform: translateY(110%) translateX(-20px) scale(0.7) rotate(-40deg);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.14;
+  }
+  45% {
+    transform: translateY(60%) translateX(40px) scale(1.3) rotate(140deg);
+    opacity: 0.18;
+    filter: blur(10px);
+  }
+  80% {
+    opacity: 0.05;
+  }
+  100% {
+    transform: translateY(-20%) translateX(-35px) scale(2.0) rotate(220deg);
+    opacity: 0;
+    filter: blur(22px);
+  }
 }
 
-.meme-img-theme:hover {
-  transform: scale(1.08) rotate(1deg);
-  filter: brightness(1.15);
+.smoke-particle-1 {
+  animation: smoke-rise-1 14s infinite linear;
+}
+
+.smoke-particle-2 {
+  animation: smoke-rise-2 18s infinite linear;
+}
+
+.smoke-particle-3 {
+  animation: smoke-rise-3 22s infinite linear;
+}
+
+/* Ambient layout and paper textures */
+.paper-texture {
+  background-color: #fbf9f4;
+  background-image: radial-gradient(circle at 10% 20%, rgba(234, 161, 53, 0.04) 0%, transparent 40%),
+                    radial-gradient(circle at 80% 80%, rgba(30, 27, 24, 0.01) 0%, transparent 30%);
+}
+
+.filter-gradient {
+  background: linear-gradient(135deg, #f1c453 0%, #eaa135 70%, #d67b16 100%);
+}
+
+/* Clean vintage design borders instead of neon glow */
+.classic-border {
+  border: 1px solid rgba(30, 27, 24, 0.15);
+}
+
+.bold-outline-button {
+  border: 2px solid #1e1b18;
+  box-shadow: 3px 3px 0 0 #1e1b18;
+  transition: all 0.15s ease-in-out;
+}
+
+.bold-outline-button:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 4px 4px 0 0 #1e1b18;
+}
+
+.bold-outline-button:active {
+  transform: translate(2px, 2px);
+  box-shadow: 0 0 0 0 #1e1b18;
 }
