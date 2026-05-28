@@ -59,6 +59,9 @@ export default function App() {
   // Auto scroll warnings active
   const [warningIndex, setWarningIndex] = useState(0);
 
+  // Active chart embed platform selection
+  const [activeChartSource, setActiveChartSource] = useState<'dexscreener' | 'geckoterminal'>('dexscreener');
+
   // Sound generator
   const triggerLighterClick = () => {
     try {
@@ -790,37 +793,93 @@ export default function App() {
       {/* LIVE CHART SECTION */}
       <section id="chart" className="max-w-6xl mx-auto px-4 mt-20 relative z-10 scroll-mt-20">
         <div className="bg-[#fffdfa] border-2 border-[#1e1b18] p-4 md:p-8 shadow-[8px_8px_0_0_#1e1b18] rounded-3xl">
-          <div className="mb-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+          <div className="mb-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
             <div>
               <span className="bg-[#eaa135] text-[#1e1b18] text-[9px] font-mono font-black border border-[#1e1b18] px-3 py-1 uppercase rounded-full">REALTIME ACCELERATION</span>
               <h3 className="font-display text-3xl uppercase text-[#1e1b18] mt-2">DEX CHART DECK</h3>
+              <p className="text-stone-500 font-mono text-[10px] mt-1 font-extrabold uppercase leading-none">
+                Vercel & Cloudflare stable dual-stream integration
+              </p>
             </div>
             
-            <div className="flex items-center gap-2">
+            <div className="flex flex-wrap items-center gap-2 w-full md:w-auto">
+              <button 
+                onClick={() => { triggerLighterClick(); setActiveChartSource('dexscreener'); }}
+                className={`px-4 py-2 rounded-xl text-xs font-mono font-black uppercase transition-all border-2 cursor-pointer ${
+                  activeChartSource === 'dexscreener' 
+                    ? 'bg-[#1e1b18] text-[#fbf9f4] border-[#1e1b18] shadow-[2px_2px_0_0_#eaa135]' 
+                    : 'bg-[#fbf9f4] hover:bg-stone-100 text-[#1e1b18] border-[#1e1b18]/10 hover:border-[#1e1b18]'
+                }`}
+              >
+                🔥 DEXSCREENER
+              </button>
+              
+              <button 
+                onClick={() => { triggerLighterClick(); setActiveChartSource('geckoterminal'); }}
+                className={`px-4 py-2 rounded-xl text-xs font-mono font-black uppercase transition-all border-2 cursor-pointer ${
+                  activeChartSource === 'geckoterminal' 
+                    ? 'bg-[#1e1b18] text-[#fbf9f4] border-[#1e1b18] shadow-[2px_2px_0_0_#eaa135]' 
+                    : 'bg-[#fbf9f4] hover:bg-stone-100 text-[#1e1b18] border-[#1e1b18]/10 hover:border-[#1e1b18]'
+                }`}
+              >
+                ⚡ GECKOTERMINAL
+              </button>
+            </div>
+          </div>
+
+          {/* Cloudflare/IFrame security info banner */}
+          <div className="bg-[#eaa135]/5 border border-[#eaa135]/30 p-3.5 rounded-2xl mb-5 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-3 text-left">
+            <div className="flex items-start gap-2.5">
+              <span className="text-base select-none mt-0.5 shrink-0">💡</span>
+              <div>
+                <p className="text-[10px] font-mono font-black text-[#1e1b18] uppercase tracking-wide leading-none">Diagnostic Alert for Web Browsers</p>
+                <p className="text-[10px] text-stone-600 font-bold leading-relaxed mt-1">
+                  DexScreener operates strict Cloudflare bot detection. If browser cookie blockers hide the main panel, use our ultra-stable <strong className="text-[#1e1b18] uppercase">GeckoTerminal backup tab</strong> or click the direct portal links below!
+                </p>
+              </div>
+            </div>
+            <div className="flex gap-2 shrink-0">
+              <a 
+                href={`https://dexscreener.com/solana/${CONTRACT_ADDRESS}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-white hover:bg-stone-100 text-[#1e1b18] border border-stone-300 hover:border-[#1e1b18] px-3 py-1.5 rounded-lg text-[10px] font-mono font-bold uppercase transition-all flex items-center gap-1 shrink-0 justify-center w-full sm:w-auto"
+              >
+                <span>OPEN DEX ↗</span>
+              </a>
               <a 
                 href={GECKOTERMINAL_URL}
                 target="_blank"
-                rel="noopener noreferrer" 
-                className="bg-[#1e1b18] hover:bg-[#eaa135] text-[#fbf9f4] hover:text-[#1e1b18] px-4 py-2.5 rounded-xl text-xs font-mono font-black uppercase transition-all"
+                rel="noopener noreferrer"
+                className="bg-white hover:bg-stone-100 text-[#1e1b18] border border-stone-300 hover:border-[#1e1b18] px-3 py-1.5 rounded-lg text-[10px] font-mono font-bold uppercase transition-all flex items-center gap-1 shrink-0 justify-center w-full sm:w-auto"
               >
-                GECKOTERMINAL POOL
+                <span>OPEN GECKO ↗</span>
               </a>
             </div>
           </div>
 
           {/* Chart Iframe box */}
           <div className="relative border-2 border-[#1e1b18] aspect-video w-full overflow-hidden bg-stone-900 rounded-2xl shadow-sm">
-            <iframe 
-              src={DEXSCREENER_EMBED_URL}
-              className="absolute inset-0 w-full h-full border-0"
-              title="CIG Solana Search Chart"
-              allow="clipboard-write"
-            ></iframe>
+            {activeChartSource === 'dexscreener' ? (
+              <iframe 
+                src={DEXSCREENER_EMBED_URL}
+                className="absolute inset-0 w-full h-full border-0 animate-fade-in"
+                title="CIG Solana Search Chart"
+                allow="clipboard-write"
+              ></iframe>
+            ) : (
+              <iframe 
+                src="https://www.geckoterminal.com/solana/pools/B5ihVH6qRkGTXhp61MZG5rRAmaCwtva3P2gRbZZrFU65?embed=1&info=0&swaps=0&theme=dark"
+                className="absolute inset-0 w-full h-full border-0 animate-fade-in"
+                title="CIG Solana GeckoTerminal Chart"
+                allow="clipboard-write"
+              ></iframe>
+            )}
           </div>
 
           <div className="mt-5 text-center">
             <p className="font-mono text-[9px] md:text-[10px] tracking-wider uppercase text-stone-500 font-extrabold leading-relaxed">
-              LIVE DATA STREAMED VIA DEXSCREENER • RETEST THE CHART WHILE BLOWING COMPACT DIGITAL RINGS
+              LIVE DATA STREAMED VIA {activeChartSource === 'dexscreener' ? 'DEXSCREENER' : 'GECKOTERMINAL'} • RETEST THE CHART WHILE BLOWING COMPACT DIGITAL RINGS
             </p>
           </div>
         </div>
